@@ -7,6 +7,8 @@
         <button @click="deletePaste(paste.id)">Delete</button>
       </div>
       <router-link to="/add">Add New Paste</router-link>
+      <p v-if="message" class="message">{{ message }}</p>
+      <p v-if="error" class="error">{{ error }}</p>
     </div>
   </template>
   
@@ -16,7 +18,9 @@
   export default {
     data() {
       return {
-        pastes: []
+        pastes: [],
+        message: '',
+        error: ''
       }
     },
     created() {
@@ -25,14 +29,32 @@
           this.pastes = response.data;
         });
     },
+    
     methods: {
       deletePaste(id) {
-        axios.delete('/api/pastes/' + id)
+        this.message = '';
+        this.error = '';
+        axios.delete('/api/pastes/' + id, {
+        headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      })
           .then(() => {
             this.pastes = this.pastes.filter(paste => paste.id !== id);
-          });
+          })
+        .catch(error => {
+            this.error = error.response.data.msg || 'An error occurred while deleting the paste';
+        });
       }
     }
   }
   </script>
   
+<style>
+.error {
+  color: red;
+}
+.message {
+  color: green;
+}
+</style>
