@@ -1,37 +1,44 @@
 import Vue from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../components/Home.vue'
-import Login from '../components/Login.vue'
-import Register from '../components/Register.vue'
-import AddPaste from '../components/AddPaste.vue'
-import ViewPaste from '../components/ViewPaste.vue'
+
+// Lazy load components
+const Home = () => import('../components/Home.vue')
+const Login = () => import('../components/Login.vue')
+const Register = () => import('../components/Register.vue')
+const AddPaste = () => import('../components/AddPaste.vue')
+const ViewPaste = () => import('../components/ViewPaste.vue')
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home
+    component: Home,
+    meta: { title: 'Home' } // Add meta title for each route
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
+    meta: { title: 'Login' }
   },
-    {
-      path: '/register',
-      name: 'Register',
-      component: Register
-    },
-    {
-      path: '/add',
-      name: 'AddPaste',
-      component: AddPaste
-    },
-    {
-      path: '/view/:id',
-      name: 'ViewPaste',
-      component: ViewPaste
-    }
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register,
+    meta: { title: 'Register' }
+  },
+  {
+    path: '/add',
+    name: 'AddPaste',
+    component: AddPaste,
+    meta: { title: 'Add New Paste' }
+  },
+  {
+    path: '/view/:id',
+    name: 'ViewPaste',
+    component: ViewPaste,
+    meta: { title: 'View Paste' }
+  }
 ]
 
 const router = createRouter({
@@ -39,4 +46,10 @@ const router = createRouter({
   routes
 })
 
-export default router
+// Optional: Update document title based on route meta title
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title || 'Default Title';
+  next();
+});
+
+export default router;

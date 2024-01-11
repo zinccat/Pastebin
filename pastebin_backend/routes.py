@@ -27,7 +27,8 @@ def create_paste():
 @app.route('/api/pastes', methods=['GET'])
 def get_pastes():
     pastes = Paste.query.all()
-    print(pastes)
+    # reverse=True to get the latest pastes first
+    pastes = sorted(pastes, key=lambda paste: paste.created_at, reverse=True)
     return jsonify([{'id': paste.id, 'content': paste.content, 'created_at': paste.created_at} for paste in pastes])
 
 @app.route('/api/pastes/<int:paste_id>', methods=['GET'])

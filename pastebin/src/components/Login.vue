@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <h2>Login</h2>
-    <form @submit.prevent="login">
-      <input type="text" v-model="username" placeholder="Username" />
-      <input type="password" v-model="password" placeholder="Password" />
-      <button type="submit">Login</button>
+  <div class="container">
+    <h2 class="title">Login</h2>
+    <form @submit.prevent="login" class="login-form">
+      <input type="text" v-model="username" placeholder="Username" class="input-field"/>
+      <input type="password" v-model="password" placeholder="Password" class="input-field"/>
+      <button type="submit" class="submit-button">Login</button>
       <p v-if="error" class="error">{{ error }}</p>
     </form>
   </div>
@@ -46,7 +46,50 @@ export default {
 </script>
 
 <style>
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.title {
+  text-align: center;
+  color: #333;
+}
+
+.login-form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
 .error {
   color: red;
+  text-align: center;
+  margin-top: 10px;
 }
 </style>

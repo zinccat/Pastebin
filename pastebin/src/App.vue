@@ -1,19 +1,19 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link>
-      <router-link to="/login">Login</router-link>
-      <router-link to="/register">Register</router-link>
-      <button @click="logout">Logout</button>
-    </nav>
+    <navigation-bar></navigation-bar>
     <router-view/>
   </div>
 </template>
 
 <script>
+import NavigationBar from './components/NavigationBar.vue';
 import axios from 'axios';
 
 export default {
+  name: 'App',
+  components: {
+    NavigationBar
+  },
   methods: {
     logout() {
       axios.post('/api/logout')
@@ -28,7 +28,3 @@ export default {
   }
 }
 </script>
-
-<style>
-/* Add your CSS styling here */
-</style>
