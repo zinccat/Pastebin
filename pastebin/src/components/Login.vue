@@ -24,7 +24,10 @@
         axios.post('/api/login', {
           username: this.username,
           password: this.password
-        })
+        }, {
+        headers: {
+        'Content-Type': 'application/json'
+      }})
         .then(() => {
           this.$router.push('/');
         })
@@ -33,6 +36,7 @@
           alert('Login failed!');
         });
       }
+      
     }
   }
   </script>

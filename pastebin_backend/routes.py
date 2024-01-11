@@ -20,6 +20,12 @@ def create_paste():
     db.session.commit()
     return jsonify({'message': 'Paste created successfully'}), 201
 
+@app.route('/api/pastes', methods=['GET'])
+def get_pastes():
+    pastes = Paste.query.all()
+    print(pastes)
+    return jsonify([{'id': paste.id, 'content': paste.content, 'created_at': paste.created_at} for paste in pastes])
+
 @app.route('/api/pastes/<int:paste_id>', methods=['GET'])
 def view_paste(paste_id):
     paste = Paste.query.get(paste_id)
@@ -72,7 +78,7 @@ def register():
     flash('Registration successful. Please log in.', 'success')
     return jsonify({'message': 'Registration successful'}), 201
 
-@app.route('/api/login', methods=['POST'])
+@app.route('/api/login', methods=['POST', 'GET'])
 def login():
     data = request.json
     username = data.get('username')
@@ -97,3 +103,6 @@ def logout():
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+if __name__ == '__main__':
+    app.run(debug=True)
