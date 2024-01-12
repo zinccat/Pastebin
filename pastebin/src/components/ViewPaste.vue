@@ -7,12 +7,14 @@
         <!-- <router-link :to="'/edit/' + paste.id" class="edit-link">Edit</router-link> -->
         <button @click="deletePaste(paste.id)" class="delete-button">Delete</button>
         <button @click="copyPasteContent(paste.content)" class="copy-button">Copy</button>
+        <button @click="copyLinkToClipboard" class="copy-link-button">Copy Link</button>
       </div>
     </div>
     <p v-if="message" class="message">{{ message }}</p>
     <p v-if="error" class="error">{{ error }}</p>
   </div>
 </template>
+
 
 <script>
 import axios from 'axios';
@@ -48,10 +50,20 @@ export default {
     copyPasteContent(content) {
       navigator.clipboard.writeText(content)
         .then(() => {
-          this.message = 'Copied to clipboard!';
+          this.message = 'Content copied to clipboard!';
         })
         .catch(err => {
           console.error('Failed to copy text: ', err);
+        });
+    },
+    copyLinkToClipboard() {
+      const currentUrl = window.location.href;
+      navigator.clipboard.writeText(currentUrl)
+        .then(() => {
+          this.message = 'Link copied to clipboard!';
+        })
+        .catch(err => {
+          console.error('Failed to copy link: ', err);
         });
     }
   }
@@ -101,6 +113,7 @@ h2 {
 .edit-link,
 .delete-button,
 .copy-button,
+.copy-link-button,
 .add-link {
   background-color: #007bff;
   color: white;

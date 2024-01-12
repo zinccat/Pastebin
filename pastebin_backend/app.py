@@ -32,7 +32,7 @@ def index():
         return jsonify({'error': 'User not found'}), 404
 
     # Query the database for pastes created by the current user
-    user_pastes = Paste.query.filter_by(user_id=user.id).order_by(Paste.created_at.desc()).all()
+    user_pastes = Paste.query.filter_by(user_id=current_username).order_by(Paste.created_at.desc()).all()
 
     # Convert the pastes to a suitable format for rendering
     pastes_data = [{'id': paste.id, 'content': paste.content, 'created_at': paste.created_at} for paste in user_pastes]
@@ -49,7 +49,7 @@ def create_paste():
         user = User.query.filter_by(username=current_username).first()
         if not user:
             return jsonify({'error': 'User not found'}), 404
-        user_id = user.id
+        user_id = current_username
     else:
         user_id = 'anonymous'
     content = request.json.get('content')
@@ -71,7 +71,7 @@ def get_pastes():
         user = User.query.filter_by(username=current_username).first()
         if not user:
             return jsonify({'error': 'User not found'}), 404
-        user_pastes = Paste.query.filter_by(user_id=user.id).order_by(Paste.created_at.desc()).all()
+        user_pastes = Paste.query.filter_by(user_id=current_username).order_by(Paste.created_at.desc()).all()
     else:
         # For unauthenticated users, return empty list
         user_pastes = []
