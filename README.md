@@ -19,8 +19,14 @@ npm install
 
 ### Backend
 ```
-cd pastebin-backend
+cd pastebin_backend
 pip install -r requirements.txt
+
+# Create database
+flask shell
+>>> from app import db
+>>> from models import User, Paste
+>>> db.create_all()
 ```
 
 ### Compiles and hot-reloads for development
@@ -32,6 +38,6 @@ npm run serve
 
 ### Backend
 ```
-cd pastebin-backend
+cd pastebin_backend
 flask run
 ```
