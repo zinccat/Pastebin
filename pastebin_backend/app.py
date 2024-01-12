@@ -18,4 +18,4 @@ app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
 
 CORS(app)
 db = SQLAlchemy(app)
-jwt = JWTManager(app)  # Add this line
+jwt = JWTManager(app)
