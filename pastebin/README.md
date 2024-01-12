@@ -1,4 +1,4 @@
-# pastebin
+# Pastebin
 
 ## Project setup
 ```

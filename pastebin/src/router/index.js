@@ -12,7 +12,7 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home,
-    meta: { title: 'Home' } // Add meta title for each route
+    meta: { title: 'Pastebin' } // Add meta title for each route
   },
   {
     path: '/login',
