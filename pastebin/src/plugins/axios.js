@@ -41,6 +41,6 @@ _axios.interceptors.response.use(
 );
 
 export function setupAxios(app) {
-  axios.defaults.baseURL = 'http://localhost:5000';
+  axios.defaults.baseURL = process.env.SERVER_URL || "http://localhost:5000/";
   app.config.globalProperties.$axios = _axios;
 }
