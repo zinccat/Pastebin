@@ -49,19 +49,18 @@ def create_paste():
         user = User.query.filter_by(username=current_username).first()
         if not user:
             return jsonify({'error': 'User not found'}), 404
-
-        content = request.json.get('content')
-        if not content:
-            return jsonify({'error': 'Content is required'}), 400
         user_id = user.id
     else:
         user_id = 'anonymous'
+    content = request.json.get('content')
+    if not content:
+        return jsonify({'error': 'Content is required'}), 400
 
     paste = Paste(content=content, user_id=user_id)  # Use the user's ID for the paste
     db.session.add(paste)
     db.session.commit()
 
-    return jsonify({'message': 'Paste created successfully'}), 201
+    return jsonify({'message': 'Paste created successfully', 'id': paste.id}), 201
 
 @app.route('/api/pastes', methods=['GET'])
 @jwt_required(optional=True)
@@ -155,6 +154,12 @@ def login():
 @jwt_required()
 def logout():
     return jsonify({'message': 'Logout successful'}), 200
+
+@app.route('/api/username', methods=['GET'])
+@jwt_required()
+def get_username():
+    current_username = get_jwt_identity()
+    return jsonify(username=current_username), 200
 
 if __name__ == '__main__':
     CORS(app)

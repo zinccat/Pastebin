@@ -37,11 +37,14 @@ export default {
         }
       })
         .then(response => {
-          this.message = 'Paste added successfully';
+          this.message = 'Paste added successfully, redirecting to view paste...';
           this.content = ''; // Clear the textarea after successful submission
+          setTimeout(() => {
+            this.$router.push('/view/' + response.data.id);
+          }, 1000);
         })
         .catch(error => {
-          this.error = "Haven't log in" //error.response.data.msg || 'An error occurred while adding the paste';
+          this.error = "Error" //error.response.data.msg || 'An error occurred while adding the paste';
         });
     }
   }
