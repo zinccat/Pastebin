@@ -2,7 +2,6 @@ from flask import Flask, jsonify, request, render_template, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_cors import CORS
-from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 import os
 
@@ -122,4 +121,5 @@ def logout():
     return jsonify({'message': 'Logout successful'}), 200
 
 if __name__ == '__main__':
+    CORS(app)
     app.run(debug=True)

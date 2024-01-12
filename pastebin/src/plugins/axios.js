@@ -6,11 +6,8 @@ import axios from "axios";
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 let config = {
-  // baseURL: process.env.baseURL || process.env.apiUrl || ""
-  // timeout: 60 * 1000, // Timeout
-  // withCredentials: true, // Check cross-site Access-Control
   // using flask server
-  baseURL: "http://localhost:5000/",
+  baseURL: process.env.VUE_APP_SERVER_URL,
   timeout: 60 * 1000,
   withCredentials: true,
 };
@@ -41,6 +38,6 @@ _axios.interceptors.response.use(
 );
 
 export function setupAxios(app) {
-  axios.defaults.baseURL = process.env.SERVER_URL || "http://localhost:5000/";
+  axios.defaults.baseURL = process.env.VUE_APP_SERVER_URL;
   app.config.globalProperties.$axios = _axios;
 }
