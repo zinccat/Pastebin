@@ -79,7 +79,7 @@ def get_pastes():
     return jsonify([{'id': paste.id, 'content': paste.content, 'created_at': paste.created_at} for paste in user_pastes])
 
 
-@app.route('/api/pastes/<int:paste_id>', methods=['GET'])
+@app.route('/api/pastes/<paste_id>', methods=['GET'])
 def view_paste(paste_id):
     paste = Paste.query.get(paste_id)
     if not paste:

@@ -1,6 +1,9 @@
 from datetime import datetime
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
+import random
+# import uuid
+# from sqlalchemy.dialects.postgresql import UUID
 
 class User(db.Model):
     # Todo: do not allow username to be set as 'anonymous'
@@ -21,7 +24,13 @@ class User(db.Model):
         return self.id
 
 class Paste(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(80), primary_key=True, default=lambda: generate_id())
     content = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Text, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+with open('words.txt') as f:
+    words = f.read().splitlines()
+    
+def generate_id():
+    return '-'.join(random.sample(words, 4))
