@@ -18,6 +18,7 @@
   
   <script>
   import axios from 'axios';
+  import { getAuthHeader } from '../utils.js';
   
   export default {
     data() {
@@ -28,7 +29,11 @@
       }
     },
     created() {
-      axios.get('/api/pastes')
+      axios.get('/api/pastes', {
+        headers: {
+        'Authorization': getAuthHeader()
+        }
+      })
         .then(response => {
           this.pastes = response.data;
         });
@@ -40,7 +45,7 @@
         this.error = '';
         axios.delete('/api/pastes/' + id, {
         headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+        'Authorization': getAuthHeader()
         }
       })
           .then(() => {

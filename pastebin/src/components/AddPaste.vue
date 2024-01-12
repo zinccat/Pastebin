@@ -12,6 +12,7 @@
 
 <script>
 import axios from 'axios';
+import { getAuthHeader } from '../utils.js';
 
 export default {
   data() {
@@ -32,7 +33,7 @@ export default {
 
       axios.post('/api/pastes', { content: this.content }, {
         headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+        'Authorization': getAuthHeader()
         }
       })
         .then(response => {

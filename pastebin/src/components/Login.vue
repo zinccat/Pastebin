@@ -12,6 +12,7 @@
 
 <script>
 import axios from 'axios';
+import { getAuthHeader } from '../utils.js';
 
 export default {
   data() {
@@ -39,7 +40,7 @@ export default {
         this.error = error.response.data.error || 'Login failed!';
       }
       );
-      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+      axios.defaults.headers.common['Authorization'] = getAuthHeader();
     }
   }
 }

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getAuthHeader } from "@/utils";
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -40,4 +41,6 @@ _axios.interceptors.response.use(
 export function setupAxios(app) {
   axios.defaults.baseURL = process.env.VUE_APP_SERVER_URL;
   app.config.globalProperties.$axios = _axios;
+  // set token in local storage to null
+  axios.defaults.headers.common['Authorization'] = getAuthHeader();
 }
