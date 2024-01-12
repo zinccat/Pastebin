@@ -4,8 +4,6 @@ A minimal pastebin with authorization, built with Vue.js and Flask.
 ![Demo](./demo/demo.png)
 
 ## Features to be added
-- Permission control
-- Hashed URL
 - Syntax highlighting
 - Expiration time
 - Password protection
